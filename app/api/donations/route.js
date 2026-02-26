@@ -1,3 +1,5 @@
+// app/api/donations/route.js
+
 import dbConnect from '@/lib/mongodb';
 import Donation from '@/models/Donation';
 import jwt from 'jsonwebtoken';
@@ -17,67 +19,37 @@ export async function GET(request) {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
-      // Make sure you select expiryDate, not expiresAt
       .select('title description quantity expiryDate contactNumber area createdAt');
 
     const total = await Donation.countDocuments();
 
-    return new Response(
-      JSON.stringify({
-        donations,
-        total,
-        page,
-        totalPages: Math.ceil(total / limit),
-      }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
+    return Response.json({
+      donations,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+    });
   } catch (error) {
     console.error('GET /api/donations error:', error);
-    return new Response(
-      JSON.stringify({ message: 'Server error while fetching donations' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return Response.json({ message: 'Server error' }, { status: 500 });
   }
 }
 
 export async function POST(request) {
   try {
     const authHeader = request.headers.get('authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return new Response(
-        JSON.stringify({ message: 'Unauthorized: No token provided' }),
-        {
-          status: 401,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+    if (!authHeader?.startsWith('Bearer ')) {
+      return Response.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
     const token = authHeader.split(' ')[1];
-    let decoded;
-    try {
-      decoded = jwt.verify(token, JWT_SECRET);
-    } catch (err) {
-      return new Response(
-        JSON.stringify({ message: 'Unauthorized: Invalid token' }),
-        {
-          status: 401,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+    const decoded = jwt.verify(token, JWT_SECRET);
 
     const body = await request.json();
     const { title, description, quantity, expiryDate, contactNumber, area } = body;
 
     if (!title || !description || !contactNumber || !area) {
-      return new Response(
-        JSON.stringify({ message: 'Missing required fields' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      return Response.json({ message: 'Missing required fields' }, { status: 400 });
     }
 
     await dbConnect();
@@ -94,21 +66,9 @@ export async function POST(request) {
 
     await donation.save();
 
-    return new Response(
-      JSON.stringify({ message: 'Donation created successfully' }),
-      {
-        status: 201,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return Response.json({ message: 'Donation created successfully' }, { status: 201 });
   } catch (error) {
     console.error('POST /api/donations error:', error);
-    return new Response(
-      JSON.stringify({ message: error.message }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return Response.json({ message: error.message }, { status: 500 });
   }
 }
