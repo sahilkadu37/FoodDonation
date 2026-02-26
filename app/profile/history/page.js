@@ -2,12 +2,20 @@
 
 import { useEffect, useState } from 'react';
 
-export default function DonationHistory({ token }) {
+export default function DonationHistory() {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    setToken(storedToken);
+  }, []);
+
+  useEffect(() => {
+    if (!token) return;
+
     async function fetchHistory() {
       try {
         const res = await fetch('/api/donations/history', {
