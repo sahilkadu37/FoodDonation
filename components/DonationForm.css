@@ -1,0 +1,235 @@
+:root {
+  --primary: #2980b9;
+  --secondary: #6a89cc;
+  --accent: #b8e994;
+  --text: #2c3e50;
+  --background: #f5faff;
+}
+
+body {
+  background-color: var(--background);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+}
+
+.donation-form {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2.5rem 3rem;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.donation-form:hover {
+  box-shadow: 0 20px 40px rgba(41, 128, 185, 0.2);
+}
+
+.donation-form h2 {
+  text-align: center;
+  margin-bottom: 2.2rem;
+  color: var(--primary);
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.donation-form label {
+  display: block;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+.donation-form input,
+.donation-form textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  margin-top: 0.3rem;
+  border: 1.5px solid #ccd6e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #fefefe;
+  transition: 0.3s ease;
+}
+
+.donation-form input:focus,
+.donation-form textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 6px rgba(41, 128, 185, 0.3);
+  outline: none;
+}
+
+.donation-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.donation-form button {
+  width: 100%;
+  background: linear-gradient(to right, var(--primary), #1c5980);
+  color: #fff;
+  padding: 1rem;
+  margin-top: 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(41, 128, 185, 0.3);
+  transition: 0.3s ease;
+}
+
+.donation-form button:hover {
+  background: linear-gradient(to right, #1c5980, #145177);
+  box-shadow: 0 10px 25px rgba(28, 89, 128, 0.5);
+}
+
+.message {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #e74c3c;
+  user-select: none;
+  transition: 0.3s;
+}
+
+.message.success {
+  color: #27ae60;
+}
+
+.about-section {
+  max-width: 700px;
+  margin: 2rem auto 3rem auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--secondary), var(--accent));
+  border-radius: 15px;
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(106, 137, 204, 0.3);
+  text-align: center;
+}
+
+.about-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 0.7rem;
+  font-weight: 700;
+}
+
+.about-section p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+img.donation-image {
+  width: 90%;
+  max-width: 1000px;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto 2rem auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+footer {
+  background: #f8f8f8;
+  padding: 1.2rem 2rem;
+  margin-top: 3rem;
+  text-align: center;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+
+.required {
+  color: #e74c3c;
+  margin-left: 4px;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.donation-form button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #666;
+}
+
+.error {
+  color: #c0392b;
+}
+
+footer p:first-child {
+  font-weight: bold;
+}
+
+
+.certificate-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.certificate-box {
+  background: white;
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  max-width: 500px;
+  width: 90%;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.certificate-box h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.certificate-box p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.cert-signature {
+  margin-top: 1.5rem;
+  font-style: italic;
+  font-weight: bold;
+  color: var(--secondary);
+}
+
+.close-btn {
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: #145177;
+}
